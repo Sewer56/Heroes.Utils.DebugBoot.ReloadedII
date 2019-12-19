@@ -1,17 +1,21 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using Heroes.Utils.DebugBoot.Configuration;
+using Heroes.Utils.DebugBoot.Heroes;
 
 namespace Heroes.Utils.DebugBoot.Config
 {
-    public class Config : JsonSerializable<Config>
+    public class Config : Configurable<Config>
     {
-        private const string ConfigFileName = "Config.json";
+        [DisplayName("Main Menu Mode")]
+        [Description("Decides which mode the game should enter when entering the main menu.")]
+        public SystemMode MainMenuMode { get; set; } = SystemMode.EasyMenu;
 
-        public LoadIntoLevel LoadIntoLevel                { get; set; }  = new LoadIntoLevel();
-        public ReplaceMainMenu ReplaceMainMenuWithDebug   { get; set; }  = new ReplaceMainMenu();
+        [DisplayName("Boot Mode")]
+        [Description("Decides into which mode the game should boot into on launch.")]
+        public SystemMode BootMode     { get; set; } = SystemMode.EasyMenu;
 
-        public static string FilePath(string modFolder) => Path.Combine(modFolder, ConfigFileName);
-        public static Config FromJson(string modFolder) => Config.FromPath(FilePath(modFolder));
-        public void ToJson(string modFolder)            => Config.ToPath(this, FilePath(modFolder));
-
+        [DisplayName("Boot Options")]
+        [Description("Options that are applied one time when the game boots.")]
+        public BootOptions BootOptions { get; set; } = BootOptions.Default;
     }
 }

@@ -8,6 +8,7 @@ using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
 using Reloaded.Mod.Interfaces.Internal;
 using static Reloaded.Hooks.Definitions.X86.FunctionAttribute;
+using IReloadedHooks = Reloaded.Hooks.ReloadedII.Interfaces.IReloadedHooks;
 
 namespace Heroes.Utils.DebugBoot
 {
@@ -18,6 +19,7 @@ namespace Heroes.Utils.DebugBoot
         private string _modDirectory;
         private DebugBoot _debugBoot;
 
+        public static void Main() { }
         public void Start(IModLoaderV1 loader)
         {
             _modLoader = (IModLoader)loader;
