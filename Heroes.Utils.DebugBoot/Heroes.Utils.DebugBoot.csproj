@@ -1,14 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	  <ApplicationIcon />
     <OutputType>WinExe</OutputType>
+    <LangVersion>preview</LangVersion>
     <StartupObject />
+    <OutputPath>$(RELOADEDIIMODS)\sonicheroes.utils.debugboot</OutputPath>
+    <RobustILLink>true</RobustILLink>
   </PropertyGroup>
+
+  <ItemGroup>
+    <RobustLinkRoots Include="Heroes.Utils.DebugBoot" />
+    <RobustLinkAssemblies Include="Reloaded.Memory" />
+  </ItemGroup>
+
+  <Import Project="Robust.Trimming.targets" />
 
   <ItemGroup>
     <None Remove="ModConfig.json" />
@@ -25,10 +35,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Reloaded.Memory" Version="2.5.0" />
+    <PackageReference Include="Reloaded.Memory" Version="4.1.4" />
     <PackageReference Include="Reloaded.Messaging.Serializer.SystemTextJson" Version="1.0.1" />
-    <PackageReference Include="Reloaded.Mod.Interfaces" Version="1.6.0" />
-    <PackageReference Include="Reloaded.SharedLib.Hooks" Version="1.4.0" />
+    <PackageReference Include="Reloaded.Mod.Interfaces" Version="2.1.0" />
+    <PackageReference Include="Reloaded.SharedLib.Hooks" Version="1.9.0" />
   </ItemGroup>
 
 </Project>
