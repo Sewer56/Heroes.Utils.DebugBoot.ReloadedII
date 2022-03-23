@@ -1,19 +1,22 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Reloaded.Mod.Interfaces;
 
 namespace Heroes.Utils.DebugBoot.Configuration
 {
-    public class Configurator : IConfigurator
+    public class Configurator : IConfiguratorV2
     {
-        /* For latest documentation:
-            - See the interface! (Go To Definition) or if not available
-            - Google the Source Code!
-        */
+        private const string ConfigFileName = "Config.json";
 
         /// <summary>
-        /// Full path to the mod folder.
+        /// The folder where the modification files are stored.
         /// </summary>
         public string ModFolder { get; private set; }
+
+        /// <summary>
+        /// Full path to the config folder.
+        /// </summary>
+        public string ConfigFolder { get; private set; }
 
         /// <summary>
         /// Returns a list of configurations.
@@ -26,7 +29,7 @@ namespace Heroes.Utils.DebugBoot.Configuration
             _configurations = new IUpdatableConfigurable[]
             {
                 // Add more configurations here if needed.
-                Configurable<Config.Config>.FromFile(Path.Combine(ModFolder, "Config.json"), "Debug Boot Options")
+                Configurable<Config.Config>.FromFile(Path.Combine(ConfigFolder, ConfigFileName), "Debug Boot Options")
             };
 
             // Add self-updating to configurations.
@@ -43,9 +46,27 @@ namespace Heroes.Utils.DebugBoot.Configuration
         }
 
         public Configurator() { }
-        public Configurator(string modDirectory) : this()
+        public Configurator(string configDirectory) : this()
         {
-            ModFolder = modDirectory;
+            ConfigFolder = configDirectory;
+        }
+
+        /* Configurator V2 */
+
+        /// <summary>
+        /// Migrates from the old config location to the newer config location.
+        /// </summary>
+        /// <param name="oldDirectory">Old directory containing the mod configs.</param>
+        /// <param name="newDirectory">New directory pointing to user config folder.</param>
+        public void Migrate(string oldDirectory, string newDirectory)
+        {
+            TryMoveFile(ConfigFileName);
+
+            void TryMoveFile(string fileName)
+            {
+                try { File.Move(Path.Combine(oldDirectory, fileName), Path.Combine(newDirectory, fileName)); }
+                catch (Exception) { /* Ignored */ }
+            }
         }
 
         /* Configurator */
@@ -58,9 +79,9 @@ namespace Heroes.Utils.DebugBoot.Configuration
         /* IConfigurator. */
 
         /// <summary>
-        /// Sets the mod directory for the Configurator.
+        /// Sets the config directory for the Configurator.
         /// </summary>
-        public void SetModDirectory(string modDirectory) => ModFolder = modDirectory;
+        public void SetConfigDirectory(string configDirectory) => ConfigFolder = configDirectory;
 
         /// <summary>
         /// Returns a list of user configurations.
@@ -72,5 +93,10 @@ namespace Heroes.Utils.DebugBoot.Configuration
         /// If you have your own configuration program/code, run that code here and return true, else return false.
         /// </summary>
         public bool TryRunCustomConfiguration() => false;
+
+        /// <summary>
+        /// Sets the mod directory for the Configurator.
+        /// </summary>
+        public void SetModDirectory(string modDirectory) { ModFolder = modDirectory; }
     }
 }

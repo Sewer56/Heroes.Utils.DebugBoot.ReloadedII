@@ -9,18 +9,19 @@ public class Program : IMod
 {
     private IModLoader _modLoader;
     private IReloadedHooks _hooks;
-    private string _modDirectory;
     private DebugBoot _debugBoot;
 
     public static void Main() { }
-    public void Start(IModLoaderV1 loader)
+
+    public void StartEx(IModLoaderV1 loader, IModConfigV1 config)
     {
         _modLoader = (IModLoader)loader;
         _modLoader.GetController<IReloadedHooks>().TryGetTarget(out _hooks);
-        _modDirectory = _modLoader.GetDirectoryForModId("sonicheroes.utils.debugboot");
+        var modDirectory = _modLoader.GetDirectoryForModId(config.ModId);
+        var configDirectory = _modLoader.GetModConfigDirectory(config.ModId);
 
         /* Your mod code starts here. */
-        _debugBoot = new DebugBoot(_modDirectory, _hooks);
+        _debugBoot = new DebugBoot(modDirectory, configDirectory, _hooks);
     }
 
     /* Mod loader actions. */
@@ -34,6 +35,7 @@ public class Program : IMod
 
     /* Automatically called by the mod loader when the mod is about to be unloaded. */
     public Action Disposing { get; }
+
 
     /* Hook Definitions */
 }

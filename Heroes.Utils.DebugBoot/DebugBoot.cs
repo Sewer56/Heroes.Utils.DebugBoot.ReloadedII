@@ -33,10 +33,11 @@ public unsafe class DebugBoot
     // For use in our ASM.
     private Pinnable<IntPtr> _ediBackup = new Pinnable<IntPtr>((IntPtr) 0x0);
 
-    public DebugBoot(string modDirectory, IReloadedHooks hooks)
+    public DebugBoot(string modDirectory, string configDirectory, IReloadedHooks hooks)
     {
         // Setup Config
-        _configurator = new Configurator(modDirectory);
+        _configurator = new Configurator(configDirectory);
+        _configurator.Migrate(modDirectory, _configurator.ConfigFolder);
         _config       = _configurator.GetConfiguration<Config.Config>(0);
         _config.ConfigurationUpdated += configurable =>
         {
