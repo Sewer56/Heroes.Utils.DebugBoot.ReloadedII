@@ -2,7 +2,7 @@
   "ModId": "sonicheroes.utils.debugboot",
   "ModName": "Sonic Heroes: Debug Boot",
   "ModAuthor": "Sewer56",
-  "ModVersion": "1.2.0",
+  "ModVersion": "1.2.1",
   "ModDescription": "Allows to boot the game straight into a level or Easy Menu.",
   "ModDll": "Heroes.Utils.DebugBoot.dll",
   "ModIcon": "Preview.png",
@@ -45,5 +45,6 @@
   "OptionalDependencies": [],
   "SupportedAppId": [
     "tsonic_win.exe"
-  ]
+  ],
+  "ProjectUrl": "https://github.com/Sewer56/Heroes.Utils.DebugBoot.ReloadedII"
 }

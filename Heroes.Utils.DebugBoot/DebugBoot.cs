@@ -1,5 +1,4 @@
-﻿using System;
-using Heroes.Utils.DebugBoot.Configuration;
+﻿using Heroes.Utils.DebugBoot.Configuration;
 using Heroes.Utils.DebugBoot.Heroes;
 using Reloaded.Hooks.Definitions;
 using Reloaded.Hooks.Definitions.Enums;

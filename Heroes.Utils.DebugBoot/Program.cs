@@ -1,5 +1,4 @@
-﻿using System;
-using Reloaded.Mod.Interfaces;
+﻿using Reloaded.Mod.Interfaces;
 using Reloaded.Mod.Interfaces.Internal;
 using IReloadedHooks = Reloaded.Hooks.ReloadedII.Interfaces.IReloadedHooks;
 
@@ -10,8 +9,6 @@ public class Program : IMod
     private IModLoader _modLoader;
     private IReloadedHooks _hooks;
     private DebugBoot _debugBoot;
-
-    public static void Main() { }
 
     public void StartEx(IModLoaderV1 loader, IModConfigV1 config)
     {
@@ -35,7 +32,4 @@ public class Program : IMod
 
     /* Automatically called by the mod loader when the mod is about to be unloaded. */
     public Action Disposing { get; }
-
-
-    /* Hook Definitions */
 }
