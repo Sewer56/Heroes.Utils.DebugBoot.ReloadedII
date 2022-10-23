@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace Heroes.Utils.DebugBoot.Config;
 
-public struct BootOptions
+public class BootOptions
 {
     public static BootOptions Default => new BootOptions()
     {
